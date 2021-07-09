@@ -1,0 +1,6 @@
+framework module Pods_ShareTracker {
+  umbrella header "Pods-ShareTracker-umbrella.h"
+
+  export *
+  module * { export * }
+}

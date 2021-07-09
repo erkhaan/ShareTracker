@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		58A1CFCBCC16BAB7D491FF16 /* Pods_ShareTracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C8CC97AF7A877C4F89AEFD1 /* Pods_ShareTracker.framework */; };
 		7D374A2426283033003EEF59 /* ShareTrackerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D374A2326283033003EEF59 /* ShareTrackerApp.swift */; };
 		7D374A2626283033003EEF59 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7D374A2526283033003EEF59 /* ContentView.swift */; };
 		7D374A2826283034003EEF59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7D374A2726283034003EEF59 /* Assets.xcassets */; };
@@ -17,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C8CC97AF7A877C4F89AEFD1 /* Pods_ShareTracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ShareTracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5487DFFB44C12E2CD58702DD /* Pods-ShareTracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareTracker.release.xcconfig"; path = "Target Support Files/Pods-ShareTracker/Pods-ShareTracker.release.xcconfig"; sourceTree = "<group>"; };
 		7D374A2026283033003EEF59 /* ShareTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShareTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7D374A2326283033003EEF59 /* ShareTrackerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareTrackerApp.swift; sourceTree = "<group>"; };
 		7D374A2526283033003EEF59 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -26,6 +29,7 @@
 		7DDCF6FB265A60E0006750A7 /* constituents.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = constituents.csv; sourceTree = "<group>"; };
 		7DE5E931268601DE006D3BF8 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		7DEFB936268C78CE00DCA655 /* CompanyInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyInfo.swift; sourceTree = "<group>"; };
+		FB4D20CA16D6D418B4E15A11 /* Pods-ShareTracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ShareTracker.debug.xcconfig"; path = "Target Support Files/Pods-ShareTracker/Pods-ShareTracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				58A1CFCBCC16BAB7D491FF16 /* Pods_ShareTracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B23FF22573C48B37C2B3DEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4C8CC97AF7A877C4F89AEFD1 /* Pods_ShareTracker.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		525FF64A7E0557CCD4EE15BF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FB4D20CA16D6D418B4E15A11 /* Pods-ShareTracker.debug.xcconfig */,
+				5487DFFB44C12E2CD58702DD /* Pods-ShareTracker.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		7D374A1726283033003EEF59 = {
 			isa = PBXGroup;
 			children = (
 				7D374A2226283033003EEF59 /* ShareTracker */,
 				7D374A2126283033003EEF59 /* Products */,
+				525FF64A7E0557CCD4EE15BF /* Pods */,
+				2B23FF22573C48B37C2B3DEF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -93,9 +118,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7D374A2F26283034003EEF59 /* Build configuration list for PBXNativeTarget "ShareTracker" */;
 			buildPhases = (
+				B9790A9D118E4B0DF47F5BC9 /* [CP] Check Pods Manifest.lock */,
 				7D374A1C26283033003EEF59 /* Sources */,
 				7D374A1D26283033003EEF59 /* Frameworks */,
 				7D374A1E26283033003EEF59 /* Resources */,
+				2309DF9F717D41EDEC97EAE5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -150,6 +177,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2309DF9F717D41EDEC97EAE5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShareTracker/Pods-ShareTracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-ShareTracker/Pods-ShareTracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-ShareTracker/Pods-ShareTracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B9790A9D118E4B0DF47F5BC9 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-ShareTracker-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		7D374A1C26283033003EEF59 /* Sources */ = {
@@ -284,6 +353,7 @@
 		};
 		7D374A3026283034003EEF59 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FB4D20CA16D6D418B4E15A11 /* Pods-ShareTracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -306,6 +376,7 @@
 		};
 		7D374A3126283034003EEF59 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5487DFFB44C12E2CD58702DD /* Pods-ShareTracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

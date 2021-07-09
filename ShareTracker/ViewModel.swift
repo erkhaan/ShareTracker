@@ -1,4 +1,6 @@
 import Foundation
+import Alamofire
+import SwiftyJSON
 
 class companyViewModel: ObservableObject{
 	// Persistence
@@ -55,25 +57,27 @@ class companyViewModel: ObservableObject{
 	// API Call
 
 	func fetchCompanyStocks(_ i: Int){
-		let link = "https://finnhub.io/api/v1/quote?symbol="+self.companies[i].ticker+"&token=c1rvmd2ad3ifb04kehfg"
-		guard let url = URL(string: link) else{
-			return
-		}
+		let url = "https://finnhub.io/api/v1/quote?symbol="+self.companies[i].ticker+"&token=c1rvmd2ad3ifb04kehfg"
 
-		URLSession.shared.dataTask(with: url){
-			data, _, error in
-			guard let data = data, error == nil else{
-				return
-			}
-			if let ans = try? JSONDecoder().decode(Response.self, from: data){
-				DispatchQueue.main.async{
-					self.companies[i].stock = ans
-					self.companies[i].stockView = self.getStockView(c: ans.c, pc: ans.pc)
+		AF.request(url).responseJSON{ response in
+			switch response.result{
+			case .success(let value):
+				let json = JSON(value)
+				// c - current price, pc - previous close price
+				guard let c = json["c"].double else{
+					print(json["c"].error!)
+					return
 				}
-			}else{
-				print("invalid")
+				guard let pc = json["pc"].double else{
+					print(json["pc"].error!)
+					return
+				}
+				self.companies[i].stock = Response(c: c, pc: pc)
+				self.companies[i].stockView = self.getStockView(c: c, pc: pc)
+			case .failure(let error):
+				print(error)
 			}
-		}.resume()
+		}
 	}
 
 	// Methods 
