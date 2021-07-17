@@ -16,6 +16,8 @@ struct stockInfo: Codable, Hashable{
 	var color: RGB = RGB()
 }
 
+//c - current price, pc - previous close price
+
 struct Response: Codable, Hashable{
 	let c: Double
 	let pc: Double
@@ -60,11 +62,4 @@ func csvImport() -> [company]{
 		companyList.append(tmp)
 	}
 	return companyList
-}
-
-extension company{
-	static var data: [company] = [company(ticker: "ASD", name: "Some company"),
-								  company(ticker: "ABC", name: "Another one"),
-								  company(ticker: "BCA", name: "And another one")
-	]
 }
