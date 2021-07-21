@@ -9,16 +9,7 @@ struct ContentView: View {
 	var body: some View{
 		TabView{
 			NavigationView{
-				ScrollView{
-					LazyVStack(spacing: 10){
-						SearchBar(searchText: $searchText)
-						Divider()
-						ForEach(viewModel.companies.filter({viewModel.searchResult($0,searchText)}), id: \.self){ company in
-							CellView(company: company, viewModel: viewModel)
-							Divider()
-						}
-					}
-				}
+				CompaniesView(companies: viewModel.companies.filter({viewModel.searchResult($0, searchText)}), searchText: $searchText, viewModel: viewModel)
 				.navigationTitle(Text("Stockings"))
 			}
 			.tabItem{
@@ -26,16 +17,7 @@ struct ContentView: View {
 				Image(systemName: "doc.text")
 			}
 			NavigationView{
-				ScrollView{
-					LazyVStack(spacing: 10){
-						SearchBar(searchText: $searchText)
-						Divider()
-						ForEach(viewModel.companies.filter({viewModel.searchResult($0,searchText) && $0.isFavorite}), id: \.self){ company in
-							CellView(company: company, viewModel: viewModel)
-							Divider()
-						}
-					}
-				}
+				CompaniesView(companies: viewModel.companies.filter({viewModel.searchResult($0, searchText) && $0.isFavorite}), searchText: $searchText, viewModel: viewModel)
 				.navigationTitle(Text("Favorites"))
 			}
 			.tabItem{
