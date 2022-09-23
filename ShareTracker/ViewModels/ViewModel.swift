@@ -12,7 +12,7 @@ final class companyViewModel: ObservableObject {
 		}
 	}
 
-	// MARK: API
+	// MARK: - API
 
 	private func fetchCompanyStocks(_ i: Int) {
 		let url = "https://finnhub.io/api/v1/quote?symbol="+self.companies[i].ticker+"&token=c1rvmd2ad3ifb04kehfg"
@@ -37,7 +37,7 @@ final class companyViewModel: ObservableObject {
 		}
 	}
 
-	// MARK: Methods
+	// MARK: - Methods
 
     func favoritePressed(_ i: Int) {
 		if companies[i].isFavorite {
@@ -48,7 +48,7 @@ final class companyViewModel: ObservableObject {
 		companies[i].isFavorite.toggle()
 	}
 
-	// Searching
+	// MARK: - Searching
 
     private func textFound(_ a: String, _ b: String) -> Bool {
 		a.lowercased().contains(b.lowercased())
@@ -60,7 +60,7 @@ final class companyViewModel: ObservableObject {
 	}
 }
 
-// MARK: Formatting
+// MARK: - Formatting
 
 extension companyViewModel {
     private func formatCurrentPrice(_ c: Double) -> String {
@@ -104,7 +104,7 @@ extension companyViewModel {
 	}
 }
 
-// MARK: Persistence
+// MARK: - Persistence
 
 extension companyViewModel {
 	private static var documentsFolder: URL {
