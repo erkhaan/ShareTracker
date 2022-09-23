@@ -55,7 +55,7 @@ class companyViewModel: ObservableObject {
 	}
 
 	func searchResult(_ company: company, _ searchText: String) -> Bool {
-		let s: String = company.name + company.ticker
+		let s = company.name + company.ticker
 		return textFound(s,searchText) || searchText.isEmpty
 	}
 }
@@ -68,7 +68,7 @@ extension companyViewModel {
 	}
 
 	func formatDifference(_ value: Double) -> String {
-		var s: String
+		let s: String
 		if value >= 0.0 {
 			s = "+$" + String(format:"%.2f",value)
 		} else {
@@ -119,7 +119,7 @@ extension companyViewModel {
 	}
 
 	private static var fileURL: URL {
-		return documentsFolder.appendingPathComponent("companies.data")
+        documentsFolder.appendingPathComponent("companies.data")
 	}
 
 	func load() {
