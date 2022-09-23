@@ -2,10 +2,10 @@ import Foundation
 import Alamofire
 import SwiftyJSON
 
-class companyViewModel: ObservableObject {
+final class companyViewModel: ObservableObject {
 	@Published var companies: [company]
 
-	init() {
+    init() {
 		self.companies = csvImport()
 		for i in 0..<companies.count {
 			fetchCompanyStocks(i)
@@ -14,7 +14,7 @@ class companyViewModel: ObservableObject {
 
 	// MARK: API
 
-	func fetchCompanyStocks(_ i: Int) {
+	private func fetchCompanyStocks(_ i: Int) {
 		let url = "https://finnhub.io/api/v1/quote?symbol="+self.companies[i].ticker+"&token=c1rvmd2ad3ifb04kehfg"
 
 		AF.request(url).responseJSON { response in
@@ -39,7 +39,7 @@ class companyViewModel: ObservableObject {
 
 	// MARK: Methods
 
-	func favoritePressed(_ i: Int) {
+    func favoritePressed(_ i: Int) {
 		if companies[i].isFavorite {
 			companies[i].buttonColor = RGB(r: 0.5, g: 0.5, b: 0.5)
 		} else {
@@ -50,11 +50,11 @@ class companyViewModel: ObservableObject {
 
 	// Searching
 
-	func textFound(_ a: String, _ b: String) -> Bool {
+    private func textFound(_ a: String, _ b: String) -> Bool {
 		a.lowercased().contains(b.lowercased())
 	}
 
-	func searchResult(_ company: company, _ searchText: String) -> Bool {
+    func searchResult(_ company: company, _ searchText: String) -> Bool {
 		let s = company.name + company.ticker
 		return textFound(s,searchText) || searchText.isEmpty
 	}
@@ -63,11 +63,11 @@ class companyViewModel: ObservableObject {
 // MARK: Formatting
 
 extension companyViewModel {
-	func formatCurrentPrice(_ c: Double) -> String {
+    private func formatCurrentPrice(_ c: Double) -> String {
 		String(format: "$%.2f",c)
 	}
 
-	func formatDifference(_ value: Double) -> String {
+    private func formatDifference(_ value: Double) -> String {
 		let s: String
 		if value >= 0.0 {
 			s = "+$" + String(format:"%.2f",value)
@@ -77,22 +77,22 @@ extension companyViewModel {
 		return s
 	}
 
-	func formatDifferenceInPercent(value: Double, pc: Double) -> String {
+    private func formatDifferenceInPercent(value: Double, pc: Double) -> String {
 		String(format:"(%.2f%%)",value/pc*100)
 	}
 
-	func formatStockDifferenceInString(value: Double, pc: Double) -> String {
+    private func formatStockDifferenceInString(value: Double, pc: Double) -> String {
 		formatDifference(value) + " " + formatDifferenceInPercent(value: value, pc: pc)
 	}
 
-	func getStockColor(_ value: Double) -> RGB {
+    private func getStockColor(_ value: Double) -> RGB {
 		if value >= 0 {
 			return RGB(r: 45/255, g: 173/255, b: 94/255)
 		}
 		return RGB(r: 1, g: 0, b: 0)
 	}
 
-	func getStockView(c: Double, pc: Double) -> stockInfo {
+    private func getStockView(c: Double, pc: Double) -> stockInfo {
 		var stockView = stockInfo()
 		let value = c - pc
 
@@ -122,7 +122,7 @@ extension companyViewModel {
         documentsFolder.appendingPathComponent("companies.data")
 	}
 
-	func load() {
+    func load() {
 		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let data = try? Data(contentsOf: Self.fileURL) else { return }
 			guard let companiesData = try? JSONDecoder().decode([company].self, from: data) else {
@@ -135,7 +135,7 @@ extension companyViewModel {
 		}
 	}
 
-	func save() {
+    func save() {
 		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let companies = self?.companies else {
                 fatalError("Self out of scope")
