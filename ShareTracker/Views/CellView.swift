@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct CellView: View{
-	var company: company
+struct CellView: View {
+	var company: Company
 	@ObservedObject var viewModel: companyViewModel
-	var body: some View{
-		HStack(spacing: 12){
+	var body: some View {
+		HStack(spacing: 12) {
 			companyInfoView(company: company, viewModel: viewModel)
 			Spacer()
 			companyStockView(company: company)
@@ -13,9 +13,9 @@ struct CellView: View{
 	}
 }
 
-struct TickerImageView: View{
+struct TickerImageView: View {
 	var ticker: String
-	var body: some View{
+	var body: some View {
 		Image("\(ticker)")
 			.resizable()
 			.aspectRatio(contentMode: .fill)
@@ -26,7 +26,7 @@ struct TickerImageView: View{
 	}
 }
 
-struct FavoriteIconImageView: View{
+struct FavoriteIconImageView: View {
 	let color: RGB
 	var body: some View{
 		Image(systemName: "star.fill")
@@ -39,13 +39,13 @@ struct FavoriteIconImageView: View{
 
 }
 
-struct companyInfoView: View{
-	var company: company
+struct companyInfoView: View {
+	var company: Company
 	@ObservedObject var viewModel: companyViewModel
-	var body: some View{
+	var body: some View {
 		TickerImageView(ticker: company.ticker)
-		VStack(alignment: .leading, spacing: 5){
-			HStack(){
+		VStack(alignment: .leading, spacing: 5) {
+			HStack() {
 				Text("\(company.ticker)")
 					.bold()
 				Button(action: {
@@ -60,14 +60,17 @@ struct companyInfoView: View{
 	}
 }
 
-struct companyStockView: View{
-	var company: company
-	var body: some View{
-		VStack(alignment: .trailing, spacing: 5){
+struct companyStockView: View {
+	var company: Company
+	var body: some View {
+		VStack(alignment: .trailing, spacing: 5) {
 			Text(company.stockView.currentPrice)
 				.bold()
 			Text(company.stockView.difference)
-				.foregroundColor(Color(red: company.stockView.color.r, green: company.stockView.color.g, blue: company.stockView.color.b))
+				.foregroundColor(Color(
+                    red: company.stockView.color.r,
+                    green: company.stockView.color.g,
+                    blue: company.stockView.color.b))
 				.font(.system(size: 14))
 				.bold()
 		}

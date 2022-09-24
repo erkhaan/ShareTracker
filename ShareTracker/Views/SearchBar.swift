@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct SearchBar: View{
+struct SearchBar: View {
 	@Binding var searchText: String
 
-	var body: some View{
-		HStack(){
+	var body: some View {
+		HStack() {
 			TextField("Find company or ticker", text: $searchText)
 				.autocapitalization(.none)
 		}

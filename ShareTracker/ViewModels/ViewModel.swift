@@ -3,7 +3,7 @@ import Alamofire
 import SwiftyJSON
 
 final class companyViewModel: ObservableObject {
-	@Published var companies: [company]
+	@Published var companies: [Company]
 
     init() {
 		self.companies = csvImport()
@@ -56,7 +56,7 @@ final class companyViewModel: ObservableObject {
 		a.lowercased().contains(b.lowercased())
 	}
 
-    func searchResult(_ company: company, _ search: String) -> Bool {
+    func searchResult(_ company: Company, _ search: String) -> Bool {
 		let s = company.name + company.ticker
 		return textFound(from: search, in: s) || search.isEmpty
 	}
@@ -94,8 +94,8 @@ extension companyViewModel {
 		return RGB(r: 1, g: 0, b: 0)
 	}
 
-    private func stockViewFrom(c: Double, pc: Double) -> stockInfo {
-		var stockView = stockInfo()
+    private func stockViewFrom(c: Double, pc: Double) -> StockInfo {
+		var stockView = StockInfo()
 		let value = c - pc
 
 		stockView.currentPrice = format(currentPrice: c)
@@ -127,7 +127,7 @@ extension companyViewModel {
     func load() {
 		DispatchQueue.global(qos: .background).async { [weak self] in
 			guard let data = try? Data(contentsOf: Self.fileURL) else { return }
-			guard let companiesData = try? JSONDecoder().decode([company].self, from: data) else {
+			guard let companiesData = try? JSONDecoder().decode([Company].self, from: data) else {
 				print("Can't decode saved companies data")
 				return
 			}

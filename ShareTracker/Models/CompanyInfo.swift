@@ -1,16 +1,16 @@
 import Foundation
 
-struct company: Codable, Hashable, Identifiable{
+struct Company: Codable, Hashable, Identifiable {
 	var id: Int = 0
 	let ticker: String
 	let name: String
 	var stock: Response = Response(c: 0, pc: 0)
-	var stockView = stockInfo()
+	var stockView = StockInfo()
 	var isFavorite: Bool = false
 	var buttonColor: RGB = RGB(r: 0.5, g: 0.5, b: 0.5)
 }
 
-struct stockInfo: Codable, Hashable{
+struct StockInfo: Codable, Hashable {
 	var currentPrice: String = "none"
 	var difference: String = "none"
 	var color: RGB = RGB()
@@ -18,12 +18,12 @@ struct stockInfo: Codable, Hashable{
 
 //c - current price, pc - previous close price
 
-struct Response: Codable, Hashable{
+struct Response: Codable, Hashable {
 	let c: Double
 	let pc: Double
 }
 
-struct RGB: Codable, Hashable{
+struct RGB: Codable, Hashable {
 	var r: Double = 0
 	var g: Double = 0
 	var b: Double = 0
@@ -38,26 +38,25 @@ pc - previous close price
 h,l - high/low price
 */
 
-func csvImport() -> [company]{
-	var companyList = [company]()
+func csvImport() -> [Company] {
+	var companyList = [Company]()
 
 	guard let filepath = Bundle.main.path(forResource: "constituents", ofType: "csv") else {
-		return [company]()
+		return [Company]()
 	}
 	var data = ""
-	do{
+	do {
 		data = try String(contentsOfFile: filepath)
-	}catch{
+	} catch {
 		print(error)
-		return [company]()
+		return [Company]()
 	}
 	var rows = data.components(separatedBy: "\n")
 	rows.removeFirst()
 	var index = 0
-	for row in rows{
+	for row in rows {
 		let columns = row.components(separatedBy: ",")
-		//let tmp = company(id: index,ticker: columns[0], name: columns[1])
-		let tmp = company(ticker: columns[0], name: columns[1])
+		let tmp = Company(ticker: columns[0], name: columns[1])
 		index += 1
 		companyList.append(tmp)
 	}
