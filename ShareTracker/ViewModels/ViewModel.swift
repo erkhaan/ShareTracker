@@ -15,7 +15,9 @@ final class companyViewModel: ObservableObject {
 	// MARK: - API
 
 	private func fetchCompanyStocks(_ i: Int) {
-		let url = "https://finnhub.io/api/v1/quote?symbol="+self.companies[i].ticker+"&token=c1rvmd2ad3ifb04kehfg"
+        let endpointUrl = "https://finnhub.io/api/v1/quote?symbol="
+        let apiKey = "&token=c1rvmd2ad3ifb04kehfg"
+        let url = endpointUrl + companies[i].ticker + apiKey
 
 		AF.request(url).responseJSON { response in
 			switch response.result {
@@ -30,7 +32,7 @@ final class companyViewModel: ObservableObject {
 					return
 				}
 				self.companies[i].stock = Response(c: c, pc: pc)
-				self.companies[i].stockView = self.getStockView(c: c, pc: pc)
+				self.companies[i].stockView = self.stockViewFrom(c: c, pc: pc)
 			case .failure(let error):
 				print(error)
 			}
@@ -50,24 +52,24 @@ final class companyViewModel: ObservableObject {
 
 	// MARK: - Searching
 
-    private func textFound(_ a: String, _ b: String) -> Bool {
+    private func textFound(from b: String, in a: String) -> Bool {
 		a.lowercased().contains(b.lowercased())
 	}
 
-    func searchResult(_ company: company, _ searchText: String) -> Bool {
+    func searchResult(_ company: company, _ search: String) -> Bool {
 		let s = company.name + company.ticker
-		return textFound(s,searchText) || searchText.isEmpty
+		return textFound(from: search, in: s) || search.isEmpty
 	}
 }
 
 // MARK: - Formatting
 
 extension companyViewModel {
-    private func formatCurrentPrice(_ c: Double) -> String {
+    private func format(currentPrice c: Double) -> String {
 		String(format: "$%.2f",c)
 	}
 
-    private func formatDifference(_ value: Double) -> String {
+    private func format(difference value: Double) -> String {
 		let s: String
 		if value >= 0.0 {
 			s = "+$" + String(format:"%.2f",value)
@@ -77,28 +79,28 @@ extension companyViewModel {
 		return s
 	}
 
-    private func formatDifferenceInPercent(value: Double, pc: Double) -> String {
-		String(format:"(%.2f%%)",value/pc*100)
+    private func format(difference value: Double, to pc: Double) -> String {
+		String(format:"(%.2f%%)",value / pc * 100)
 	}
 
-    private func formatStockDifferenceInString(value: Double, pc: Double) -> String {
-		formatDifference(value) + " " + formatDifferenceInPercent(value: value, pc: pc)
+    private func formatStockToString(difference value: Double, percent pc: Double) -> String {
+		format(difference: value) + " " + format(difference: value, to: pc)
 	}
 
-    private func getStockColor(_ value: Double) -> RGB {
+    private func stockColor(from value: Double) -> RGB {
 		if value >= 0 {
 			return RGB(r: 45/255, g: 173/255, b: 94/255)
 		}
 		return RGB(r: 1, g: 0, b: 0)
 	}
 
-    private func getStockView(c: Double, pc: Double) -> stockInfo {
+    private func stockViewFrom(c: Double, pc: Double) -> stockInfo {
 		var stockView = stockInfo()
 		let value = c - pc
 
-		stockView.currentPrice = formatCurrentPrice(c)
-		stockView.difference = formatStockDifferenceInString(value: value, pc: pc)
-		stockView.color = getStockColor(value)
+		stockView.currentPrice = format(currentPrice: c)
+		stockView.difference = formatStockToString(difference: value, percent: pc)
+		stockView.color = stockColor(from: value)
 
 		return stockView
 	}
