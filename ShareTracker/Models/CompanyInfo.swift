@@ -16,7 +16,8 @@ struct StockInfo: Codable, Hashable {
 	var color: RGB = RGB()
 }
 
-//c - current price, pc - previous close price
+/// c - current price
+/// pc - previous close price
 
 struct Response: Codable, Hashable {
 	let c: Double
@@ -29,14 +30,12 @@ struct RGB: Codable, Hashable {
 	var b: Double = 0
 }
 
-/*
-Quote real-time quote for US stocks
-{"c":132.03,"h":135,"l":131.655,"o":134.94,"pc":134.43,"t":1618430402}
-c - current price
-o - open price
-pc - previous close price
-h,l - high/low price
-*/
+/// Quote real-time quote for US stocks
+/// {"c":132.03,"h":135,"l":131.655,"o":134.94,"pc":134.43,"t":1618430402}
+/// c - current price
+/// o - open price
+/// pc - previous close price
+/// h,l - high/low price
 
 func csvImport() -> [Company] {
 	var companyList = [Company]()
