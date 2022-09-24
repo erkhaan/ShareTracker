@@ -56,9 +56,8 @@ final class companyViewModel: ObservableObject {
 		a.lowercased().contains(b.lowercased())
 	}
 
-    func searchResult(_ company: Company, _ search: String) -> Bool {
-		let s = company.name + company.ticker
-		return textFound(from: search, in: s) || search.isEmpty
+    func searchResult(_ name: String, _ ticker: String, _ search: String) -> Bool {
+        textFound(from: search, in: name + ticker) || search.isEmpty
 	}
 }
 

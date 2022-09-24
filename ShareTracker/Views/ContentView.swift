@@ -11,7 +11,7 @@ struct ContentView: View {
 			NavigationView {
 				CompaniesView(
                     companies: viewModel.companies.filter({
-                        viewModel.searchResult($0, searchText)}),
+                        viewModel.searchResult($0.name, $0.ticker, searchText)}),
                     searchText: $searchText,
                     viewModel: viewModel)
 				.navigationTitle(Text("Stockings"))
@@ -23,7 +23,7 @@ struct ContentView: View {
 			NavigationView {
 				CompaniesView(
                     companies: viewModel.companies.filter({
-                        viewModel.searchResult($0, searchText) &&
+                        viewModel.searchResult($0.name, $0.ticker, searchText) &&
                         $0.isFavorite}),
                     searchText: $searchText,
                     viewModel: viewModel)
