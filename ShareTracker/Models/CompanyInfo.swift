@@ -39,25 +39,24 @@ struct RGB: Codable, Hashable {
 
 func csvImport() -> [Company] {
     var companyList = [Company]()
-    
     guard let filepath = Bundle.main.path(forResource: "constituents", ofType: "csv") else {
-        return [Company]()
+        return companyList
     }
     var data = ""
     do {
         data = try String(contentsOfFile: filepath)
     } catch {
         print(error)
-        return [Company]()
+        return companyList
     }
     var rows = data.components(separatedBy: "\n")
     rows.removeFirst()
-    var index = 0
-    for row in rows {
+    for (index, row) in rows.enumerated() {
         let columns = row.components(separatedBy: ",")
-        var tmp = Company(id: index, ticker: columns[0], name: columns[1])
-        index += 1
-        companyList.append(tmp)
+        companyList.append(Company(
+            id: index,
+            ticker: columns[0],
+            name: columns[1]))
     }
     return companyList
 }
