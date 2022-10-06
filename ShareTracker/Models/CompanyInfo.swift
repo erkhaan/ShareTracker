@@ -55,7 +55,7 @@ func csvImport() -> [Company] {
     var index = 0
     for row in rows {
         let columns = row.components(separatedBy: ",")
-        let tmp = Company(ticker: columns[0], name: columns[1])
+        var tmp = Company(id: index, ticker: columns[0], name: columns[1])
         index += 1
         companyList.append(tmp)
     }
