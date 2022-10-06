@@ -8,6 +8,30 @@ struct Company: Codable, Hashable, Identifiable {
     var stockView = StockInfo()
     var isFavorite: Bool = false
     var buttonColor: RGB = RGB(r: 0.5, g: 0.5, b: 0.5)
+    
+    static func csvImport() -> [Company] {
+        var companyList = [Company]()
+        guard let filepath = Bundle.main.path(forResource: "constituents", ofType: "csv") else {
+            return companyList
+        }
+        var data = ""
+        do {
+            data = try String(contentsOfFile: filepath)
+        } catch {
+            print(error)
+            return companyList
+        }
+        var rows = data.components(separatedBy: "\n")
+        rows.removeFirst()
+        for (index, row) in rows.enumerated() {
+            let columns = row.components(separatedBy: ",")
+            companyList.append(Company(
+                id: index,
+                ticker: columns[0],
+                name: columns[1]))
+        }
+        return companyList
+    }
 }
 
 struct StockInfo: Codable, Hashable {
@@ -36,27 +60,3 @@ struct RGB: Codable, Hashable {
 /// o - open price
 /// pc - previous close price
 /// h,l - high/low price
-
-func csvImport() -> [Company] {
-    var companyList = [Company]()
-    guard let filepath = Bundle.main.path(forResource: "constituents", ofType: "csv") else {
-        return companyList
-    }
-    var data = ""
-    do {
-        data = try String(contentsOfFile: filepath)
-    } catch {
-        print(error)
-        return companyList
-    }
-    var rows = data.components(separatedBy: "\n")
-    rows.removeFirst()
-    for (index, row) in rows.enumerated() {
-        let columns = row.components(separatedBy: ",")
-        companyList.append(Company(
-            id: index,
-            ticker: columns[0],
-            name: columns[1]))
-    }
-    return companyList
-}

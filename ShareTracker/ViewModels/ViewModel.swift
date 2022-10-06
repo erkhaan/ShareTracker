@@ -6,7 +6,7 @@ final class companyViewModel: ObservableObject {
 	@Published var companies: [Company]
 
     init() {
-		self.companies = csvImport()
+        self.companies = Company.csvImport()
 		for i in 0..<companies.count {
 			fetchCompanyStocks(i)
 		}
